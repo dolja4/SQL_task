@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS results;
+CREATE TABLE results (number INT);
+DROP PROCEDURE IF EXISTS  get_numbers;
+DELIMITER //
+
+CREATE PROCEDURE get_numbers()
+BEGIN
+	DECLARE i INT DEFAULT 1;
+	WHILE i <= 1000 DO 
+		IF i % 15 = 0 OR i % 33 = 0 THEN 
+			INSERT INTO results (number) VALUES (i);
+		END IF;
+		SET i = i + 1;
+	END WHILE;
+END//;
+
+DELIMITER ;
+CALL get_numbers();
+SELECT * FROM results;
